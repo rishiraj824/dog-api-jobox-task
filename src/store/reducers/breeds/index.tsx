@@ -1,10 +1,16 @@
+import { BREEDS_RECEIVED } from '../../types';
 
 const defaultState: Array<String> = [];
 
-export default (action, state = defaultState) => {
+interface BreedAction {
+    type: String,
+    payload: any
+}
+
+export default (action: BreedAction, state = defaultState) => {
 
     switch (action.type) {
-        case "BREED_FETCHED":
+        case BREEDS_RECEIVED:
             
             return [];
     

@@ -1,20 +1,24 @@
+import { IMAGES_RECEIVED } from "../../types";
 
 interface galleryState {
     query: String,
-    images: Array
+    images: Array<String>
 }
 const defaultState: galleryState = {
     query: '',
     images: []
 }
 
-export default (action, state = defaultState) => {
+type Action = {
+    type: String,
+    payload: any[]
+}
+
+export default (action: Action, state = defaultState) => {
     switch (action.type) {
-        case 'RECEIVED_IMAGES':
+        case IMAGES_RECEIVED:
             return [];
-            break;
         default:
             return state;
-            break;
     }
  }

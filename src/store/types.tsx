@@ -1,2 +1,3 @@
 export const IMAGES_RECEIVED = 'IMAGES_RECEIVED';
 export const BREEDS_RECEIVED = 'BREEDS_RECEIVED';
+export const SET_QUERY = 'SET_QUERY';
