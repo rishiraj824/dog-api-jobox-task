@@ -1,6 +1,13 @@
 import React from 'react';
 
-export default function Search({ value, onKeyPress, onChange }: any) {
+type Props = {
+    value: string;
+    onKeyPress: (x:string) => void;
+    onChange: (x:string) => void;
+};
+
+export default function Search(props: Props) {
+    const { value, onKeyPress, onChange } = props;
     return (<input 
             className="search" 
             value={value} 

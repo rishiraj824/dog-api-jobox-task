@@ -1,12 +1,25 @@
 
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import Search from '../../components/search';
-import { search, setQuery } from '../../store/actions';
+import { RootState } from '../../store';
+import { search, setQuery } from '../../store/reducers/gallery/actions';
+import { GalleryState } from '../../store/reducers/gallery/types';
 import './index.css';
 
-export const Gallery: React.FC<GalleryProps> = (props) => {
-    const { query, images = [], search, setQuery } = props;
+const mapStateToProps = (state: RootState): GalleryState => state.gallery;
+
+const mapDispatchToProps = {
+    search: (x: string) => search(x, 10),
+    setQuery: (x: string) => setQuery(x)
+}
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+type GalleryProps = ConnectedProps<typeof connector>
+
+const Gallery = (props: GalleryProps) => {
+    const { query = '', images = [], search, setQuery } = props;
 
     return (
         <main>
@@ -22,21 +35,4 @@ export const Gallery: React.FC<GalleryProps> = (props) => {
     )
 }
 
-const mapStateToProps = (state: any) => ({
-    images: state.gallery.images,
-    query: state.gallery.query
-})
-
-const mapDispatchToProps = {
-    search: (dispatch: any) => dispatch(search),
-    setQuery: (dispatch: any) => dispatch(setQuery)
-}
-
-type GalleryProps = {
-    query?: string;
-    images?: [x: string];
-    search: (data: string) => void;
-    setQuery: (data: string) => void;
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Gallery);
+export default connector(Gallery);
