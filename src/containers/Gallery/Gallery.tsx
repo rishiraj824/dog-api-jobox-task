@@ -1,36 +1,48 @@
 
 import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
+import { Dispatch } from 'redux';
 import Search from '../../components/search';
+import { withInfiniteScroll } from '../../mixins/InfiniteScroll';
 import { RootState } from '../../store';
-import { search, setQuery } from '../../store/reducers/gallery/actions';
-import { GalleryState } from '../../store/reducers/gallery/types';
+import { searchAction } from '../../store/reducers/gallery/actions';
 import './index.css';
 
-const mapStateToProps = (state: RootState): GalleryState => state.gallery;
+const mapStateToProps = (state: RootState): RootState => state;
 
-const mapDispatchToProps = {
-    search: (x: string) => search(x, 10),
-    setQuery: (x: string) => setQuery(x)
+const mapDispatchToProps = (dispatch: Dispatch) => {
+    return {
+        search: searchAction(dispatch),
+    }
 }
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
 type GalleryProps = ConnectedProps<typeof connector>
 
+
 const Gallery = (props: GalleryProps) => {
-    const { query = '', images = [], search, setQuery } = props;
+    const { breeds = [], gallery, search } = props;
+    const { query = '', imageStore = {}, loading } = gallery;
+
+    const images: string[] = imageStore[query].images;
+
+    const Scrollable = withInfiniteScroll(()=> <div className="gallery">
+        {images.map((image: string, i: number) => <img src={image} key={i} alt={`dog-${i}`}/>)}
+    </div>)
 
     return (
         <main>
             <Search 
                 value={query} 
-                onChange={setQuery} 
-                onKeyPress={search}
+                onChange={search} 
+                options={breeds}
+                className={'search'}
             />
-            <div className="gallery">
-                {(images as [x:string]).map((image: string, i: number) => <img src={image} key={i} alt={`dog-${i}`}/>)}
-            </div>
+            <Scrollable 
+                loading={loading} 
+                onScrolled={()=>search(query)}
+            />            
         </main>
     )
 }

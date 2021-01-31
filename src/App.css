@@ -1,0 +1,12 @@
+.header {
+    text-align: center;
+    font-size: 1.3em;
+    margin: 1.2rem auto;
+    font-weight: 600;
+}
+
+.footer {
+    text-align: center;
+    font-size: 400;
+    margin: 1.2rem auto;
+}

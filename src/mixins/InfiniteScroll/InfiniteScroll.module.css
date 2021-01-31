@@ -1,4 +1,4 @@
-/* .infiniteScroller {
+.infiniteScroller {
     overflow-y: auto;
     overflow-x: hidden;
     background: transparent;
@@ -18,4 +18,4 @@
 .spinner {
     width: 3rem;
     height: 3rem;
-} */
+}

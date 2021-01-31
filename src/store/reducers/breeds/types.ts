@@ -5,4 +5,8 @@ interface BreedReceivedAction {
     payload: any
 }
 
+export interface BreedState{
+    breeds: string[]
+}
+
 export type BreedActionTypes = BreedReceivedAction

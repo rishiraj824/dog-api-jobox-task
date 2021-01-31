@@ -1,16 +1,35 @@
-import { ApiResponse, ApiThunk } from '../../constants';
-import { GalleryActionTypes, IMAGES_RECEIVED, SET_QUERY } from './types';
+import { Dispatch } from 'redux';
+import store from '../..';
+import { ApiResponse, HOST, LIMIT } from '../../constants';
+import { GalleryActionTypes, GalleryState, ImagePacket, IMAGES_API_INIT, IMAGES_RECEIVED, SET_QUERY } from './types';
 
-const getApi = (breed: string, limit: number) => `https://dog.ceo/api/breed/${breed}/images/random/${limit}`;
+const getApi = (breed: string) => `${HOST}/breed/${breed}/images/random/${LIMIT}`;
 
-export const search = (query: string, limit: number): ApiThunk => async (disptach) => {
-    const images: ApiResponse = await (await fetch(getApi(query, limit))).json();
-    disptach({ type: IMAGES_RECEIVED, payload: images.message });
+const gallery = (): GalleryState  => store.getState().gallery;
+
+export function populateImages(images: string[]): GalleryActionTypes {
+    return { type: IMAGES_RECEIVED, payload: images };
+}
+
+export const search = async (dispatch: Dispatch, query: string) => {
+    const imageStore: ImagePacket = gallery().imageStore[query];
+    if(!imageStore) {
+        dispatch({ type: IMAGES_API_INIT, payload: query });
+    }
+    if(imageStore && imageStore.completed) {
+        dispatch(populateImages(imageStore.images));
+        return;
+    }
+    dispatch({ type: SET_QUERY, payload: query });
+    
+    try {
+        const images: ApiResponse = await (await fetch(getApi(query))).json();
+        dispatch(populateImages(images.message));
+    } catch (error)  {
+        dispatch(populateImages([]));
+    }
 };
 
-export function setQuery(query: string): GalleryActionTypes { 
-    return { 
-        type: SET_QUERY, 
-        payload: query 
-    }
+export const searchAction = (dispatch : Dispatch) => {
+    return (query: string) => search(dispatch, query);
 }

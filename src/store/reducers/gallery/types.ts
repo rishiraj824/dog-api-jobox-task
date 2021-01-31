@@ -17,13 +17,21 @@ interface SetQueryAction {
     payload: string
 }
 
+export interface ImagePacket {
+    images: string[],
+    completed: boolean;
+}
+
+interface ImageStore {
+    [key: string]: ImagePacket
+}
 
 export interface GalleryState {
     query: string,
-    images: string[],
+    imageStore: ImageStore,
     loading: boolean,
     total: number,
-    limit: number
+    limit: number,
 }
 
 export type GalleryActionTypes = ImagesReceivedAction | ImagesInitAction | SetQueryAction

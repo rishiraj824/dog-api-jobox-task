@@ -1,17 +1,25 @@
 import React from 'react';
+import { capitalize } from '../../utils';
+import "./index.css";
 
 type Props = {
     value: string;
-    onKeyPress: (x:string) => void;
     onChange: (x:string) => void;
+    options: string[],
+    className: string
 };
 
 export default function Search(props: Props) {
-    const { value, onKeyPress, onChange } = props;
-    return (<input 
-            className="search" 
+    const { value, onChange, options, className } = props;
+    const setValue = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        onChange(e.target.value);
+    }
+    return (<select
+            aria-label="Search Dog Breeds"
+            onChange={setValue}  
             value={value} 
-            onKeyPress={(e)=> { if(e.key === 'Enter') { onKeyPress(value); } }}  
-            onChange={(e)=>onChange(e.target.value)}  
-        />)
+            className={`${className} search`}
+            autoFocus={true}>
+                {(options as string[]).map((option: string)=><option key={option} value={option}>{capitalize(option)}</option>)}
+            </select>);        
 }
