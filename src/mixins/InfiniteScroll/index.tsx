@@ -1,4 +1,5 @@
 import React from 'react';
+import { Spinner } from '../../components/spinner';
 
 type WithInfiniteScrollProps = {
   onScrolled: () => void;
@@ -15,13 +16,13 @@ export const withInfiniteScroll = <P extends object>(Component: React.ComponentT
     }
  
     onScroll = () => {
-      if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 500)) {
+      if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 50)) {
         this.props.onScrolled();
       }
     }
  
     render() {
-      return <Component {...this.props} />;
+      return <React.Fragment>{this.props.loading ? <Spinner /> : ''}<Component {...this.props} /></React.Fragment>;
     }
   }
   

@@ -27,23 +27,28 @@ const Gallery = (props: GalleryProps) => {
 
     const images: string[] = imageStore[query].images;
 
-    const Scrollable = withInfiniteScroll(()=> <div className="gallery">
-        {images.map((image: string, i: number) => <img src={image} key={i} alt={`dog-${i}`}/>)}
-    </div>)
+    const Scrollable = withInfiniteScroll(()=> <ul className="gallery">
+        {images.map((image: string, i: number) => <li key={i}><img loading="lazy" src={image} alt={`${query}-${i}`}/></li>)}
+    </ul>)
 
     return (
-        <main>
-            <Search 
-                value={query} 
-                onChange={search} 
-                options={breeds}
-                className={'search'}
-            />
-            <Scrollable 
-                loading={loading} 
-                onScrolled={()=>search(query)}
-            />            
-        </main>
+        <React.Fragment>
+            <header className="header">
+                <h4>Search for your Favourite Dog!</h4>
+                <Search 
+                    value={query} 
+                    onChange={search} 
+                    options={breeds}
+                    className={'select'}
+                /> 
+            </header>
+            <main>
+                <Scrollable 
+                    loading={loading} 
+                    onScrolled={()=>search(query)}
+                />            
+            </main>
+        </React.Fragment>
     )
 }
 

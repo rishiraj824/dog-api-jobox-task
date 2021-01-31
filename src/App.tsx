@@ -15,7 +15,6 @@ function App() {
   
   return (
     <React.Fragment>
-      <header className="header">Search for your Favourite Dog!</header>
       <Gallery/>
       <footer className="footer">By <a href="https://rishiraj.co" target="_blank">Rishi Raj</a></footer>
     </React.Fragment>

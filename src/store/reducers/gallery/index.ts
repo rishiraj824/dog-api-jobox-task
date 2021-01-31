@@ -34,11 +34,10 @@ export function gallery(state = defaultState, action: GalleryActionTypes): Galle
                 query: action.payload
             }
         case IMAGES_RECEIVED:
-            const setImages = state.imageStore[state.query] ? new Set([...state.imageStore[state.query].images,...action.payload])
-                 : new Set(action.payload);
-            const images = Array.from(setImages);
+            const nonDuplicateImages = new Set([...state.imageStore[state.query].images,...action.payload])
+            const images = Array.from(nonDuplicateImages);
             const completed = state.total === images.length;
-            const total = completed ? images.length : images.length + action.payload.length;
+            const total = images.length;
             return {
                 ...state,
                 imageStore: {
