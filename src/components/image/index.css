@@ -1,0 +1,9 @@
+.thumbnail {
+    background-size: 400% 400%;
+    cursor: pointer;
+    height: 180px;
+    width: 280px;
+    object-fit: cover;
+    margin: 6px;
+    background: #f5f6f6;
+}

@@ -15,11 +15,11 @@ export default function Search(props: Props) {
         onChange(e.target.value);
     }
     return (<select
-            aria-label="Search Dog Breeds"
-            onChange={setValue}  
-            value={value} 
-            className={`${className} search`}
-            autoFocus={true}>
+                aria-label="Search Dog Breeds"
+                onChange={setValue}  
+                value={value} 
+                className={`${className} search`}
+            >
                 {(options as string[]).map((option: string)=><option key={option} value={option}>{capitalize(option)}</option>)}
             </select>);        
 }

@@ -2,8 +2,9 @@
 import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { Dispatch } from 'redux';
+import Image from '../../components/image';
 import Search from '../../components/search';
-import { withInfiniteScroll } from '../../mixins/InfiniteScroll';
+import { useInfiniteScroll } from '../../hooks/useInfiniteScroll';
 import { RootState } from '../../store';
 import { searchAction } from '../../store/reducers/gallery/actions';
 import './index.css';
@@ -27,26 +28,25 @@ const Gallery = (props: GalleryProps) => {
 
     const images: string[] = imageStore[query].images;
 
-    const Scrollable = withInfiniteScroll(()=> <ul className="gallery">
-        {images.map((image: string, i: number) => <li key={i}><img loading="lazy" src={image} alt={`${query}-${i}`}/></li>)}
-    </ul>)
+    const scrollRef = useInfiniteScroll({ onBottom: () => search(query), loading });
 
     return (
         <React.Fragment>
-            <header className="header">
-                <h4>Search for your Favourite Dog!</h4>
+            <nav className="header">
+                <h5>Search for your Favourite Dog!</h5>
                 <Search 
                     value={query} 
                     onChange={search} 
                     options={breeds}
                     className={'select'}
                 /> 
-            </header>
-            <main>
-                <Scrollable 
-                    loading={loading} 
-                    onScrolled={()=>search(query)}
-                />            
+            </nav>
+            <main>                
+                <ul ref={scrollRef} className="gallery">
+                    {images.map((image: string, i: number) => <li key={i}>
+                        <Image className="thumbnail" alt={`${query}-${i}`} src={image} />
+                    </li>)}
+                </ul>         
             </main>
         </React.Fragment>
     )
