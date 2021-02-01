@@ -1,5 +1,4 @@
 import React from 'react';
-import { Spinner } from '../../components/spinner';
 
 type WithInfiniteScrollProps = {
   onScrolled: () => void;
@@ -22,7 +21,7 @@ export const withInfiniteScroll = <P extends object>(Component: React.ComponentT
     }
  
     render() {
-      return <React.Fragment>{this.props.loading ? <Spinner /> : ''}<Component {...this.props} /></React.Fragment>;
+      return <React.Fragment><Component {...this.props} /></React.Fragment>;
     }
   }
   

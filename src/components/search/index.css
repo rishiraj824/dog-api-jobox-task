@@ -7,7 +7,6 @@ select {
   outline: 0;
   box-shadow: none;
   border: 0 !important;
-  background: #2c3e50;
   background-image: none;
 }
 
@@ -21,14 +20,16 @@ select::-ms-expand {
   width: 20em;
   height: 3em;
   line-height: 3;
-  background: #2c3e50;
   overflow: hidden;
-  border-radius: .25em;
+  border-radius: .50em;
+  background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png) no-repeat right #ffffff;
+  background-position-x: 18em;
 }
 
 select {
   flex: 1;
-  padding: 0 .5em;
-  color: #fff;
+  padding-left: 1em;
+  color: #333333;
+  font-weight: 600;
   cursor: pointer;
 }

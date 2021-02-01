@@ -1,24 +1,27 @@
-import { GalleryActionTypes, GalleryState, IMAGES_API_INIT, IMAGES_RECEIVED, SET_QUERY } from "./types";
+import { GalleryActionTypes, GalleryState, IMAGES_API_INIT, IMAGES_RECEIVED, SET_LOADING, SET_QUERY } from "./types";
 
 const defaultState: GalleryState = {
     query: 'pug',
     imageStore: {
         'pug': {
             images: [],
-            completed: false
+            completed: false,
         },
     },
     loading: false,
-    total: 0,
     limit: 10,
 }
 
 export function gallery(state = defaultState, action: GalleryActionTypes): GalleryState {
     switch (action.type) {
+        case SET_LOADING:
+            return {
+                ...state,
+                loading: true
+            }
         case IMAGES_API_INIT:
             return {
                 ...state,
-                loading: true,
                 query: action.payload,
                 imageStore: {
                     ...state.imageStore,
@@ -36,8 +39,7 @@ export function gallery(state = defaultState, action: GalleryActionTypes): Galle
         case IMAGES_RECEIVED:
             const nonDuplicateImages = new Set([...state.imageStore[state.query].images,...action.payload])
             const images = Array.from(nonDuplicateImages);
-            const completed = state.total === images.length;
-            const total = images.length;
+            const completed = state.imageStore[state.query].images.length === images.length;
             return {
                 ...state,
                 imageStore: {
@@ -47,7 +49,6 @@ export function gallery(state = defaultState, action: GalleryActionTypes): Galle
                         completed
                     }
                 },
-                total,
                 loading: false
             }
         default:

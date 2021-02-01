@@ -1,7 +1,5 @@
 .header {
   text-align: center;
-  font-size: 1.3em;
-  font-weight: 600;
   position: fixed;
   left: 0;
   right: 0;
@@ -11,19 +9,28 @@
   width: 100%;
 }
 
+.header h5 {
+  font-size: 1.2em;
+  font-weight: 600;
+  margin: 1.2em 0;
+}
+
 .thumbnail {
   background-size: 400% 400%;
   cursor: pointer;
-  height: 280px;
-  width: 180px;
+  height: 30vh;
+  width: 280px;
   object-fit: cover;
-  margin: 6px;
   background: #f5f6f6;
+  border-bottom: 1px solid #f6f6f6;
+}
+
+.main {
+  text-align: center;
 }
 
 .select {
   margin: auto;
-  margin-bottom: 1.2rem;
 }
 
 
@@ -31,7 +38,7 @@
   list-style-type: none;
   padding: 0;
   position: relative;
-  top: 15vh;
+  top: 17vh;
 }
 
 .gallery {
@@ -41,14 +48,16 @@
   margin: auto;
 }
 
+.spinner {
+  top: 20vh;
+  position: relative;
+  margin: 2rem auto;
+}
+
 .gallery li {
   height: 30vh;
   margin: 5px;
   flex-grow: 1;
-}
-
-.gallery li:last-child {
-  flex-grow: 10;
 }
 
 .gallery img {
@@ -88,7 +97,7 @@
     min-width: 0;
   }
   .gallery {
-    top: 20vh;
+    top: 22vh;
   }
   .header {
     height: 20vh;
