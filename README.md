@@ -11,6 +11,5 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 
 ## Demo
-<hr/>
 
 [https://jobox-task.surge.sh](https://jobox-task.surge.sh)
