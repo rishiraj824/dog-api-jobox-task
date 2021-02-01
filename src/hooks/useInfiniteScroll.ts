@@ -17,7 +17,7 @@ export const useInfiniteScroll = ({
 
     const handleScroll = () => {
         if (ref && ref.current) {
-            if ((window.scrollY + window.innerHeight >= ref.current.clientHeight + ref.current.offsetTop) && !loading) {
+            if ((window.scrollY + window.innerHeight === ref.current.clientHeight + ref.current.offsetTop) && !loading) {
                 onBottom();
             }
         }
