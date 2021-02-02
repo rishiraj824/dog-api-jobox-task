@@ -26,6 +26,9 @@ export const setLoading = (): GalleryActionTypes => {
 }
 
 export const search = async (dispatch: Dispatch) => {
+    if(gallery().loading) {
+        return;
+    }
     const query = gallery().query;
     dispatch(setLoading());
 

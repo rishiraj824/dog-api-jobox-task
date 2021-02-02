@@ -3,7 +3,11 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Running the Project
 
-### `yarn``
+Install dependencies
+
+### `yarn`
+
+Run the project
 ### `yarn start`
 
 Runs the app in the development mode.\

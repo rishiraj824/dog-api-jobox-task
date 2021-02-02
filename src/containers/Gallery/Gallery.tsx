@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { createRef } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { Dispatch } from 'redux';
 import Image from '../../components/image';
@@ -32,8 +32,10 @@ const Gallery = (props: GalleryProps) => {
     const { query = 'pug', imageStore = {}, loading } = gallery;
 
     const images: string[] = imageStore[query].images;
+    const containerRef = createRef<HTMLElement>()
 
-    const scrollRef = useInfiniteScroll({ onBottom: search, loading });
+    const scrollRef = useInfiniteScroll({ onBottom: search, loading, containerRef });
+
     return (
         <React.Fragment>
             <nav className="header">
@@ -45,7 +47,7 @@ const Gallery = (props: GalleryProps) => {
                     className={'select'}
                 /> 
             </nav>
-            <main className="main">                
+            <main className="main" ref={containerRef}>                
                 <ul ref={scrollRef} className="gallery">
                     {images.map((image: string, i: number) => <li key={i}>
                         <Image className="thumbnail" alt={`${query}-${i}`} src={image} />

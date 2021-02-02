@@ -27,6 +27,11 @@
 
 .main {
   text-align: center;
+  height: 80vh;
+  top: 17vh;
+  position: relative;
+  overflow: hidden;
+  overflow-y: scroll;
 }
 
 .select {
@@ -38,7 +43,6 @@
   list-style-type: none;
   padding: 0;
   position: relative;
-  top: 17vh;
 }
 
 .gallery {
@@ -96,7 +100,7 @@
     max-height: 75vh;
     min-width: 0;
   }
-  .gallery {
+  .main {
     top: 22vh;
   }
   .header {
